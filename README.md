@@ -1,10 +1,21 @@
-# Critical Hit Reform · 暴击改革
+# Critical Hit Reform 
+
+**中文描述在下方**
 
 Critical Hit Reform is a **NeoForge** mod for Minecraft that introduces **critical hit chance** and **critical hit damage** to weapons, bringing a game-style critical hit system into the game. This project is a **NeoForge port of *Modification of Critical Hit* (Fabric) by [WCBBEX](https://modrinth.com/user/WCBBEX)**, ported to Minecraft 1.21.1 by **Accidey**, with additional enhancements and refinements.
 
----
+### Credits
 
-## English
+**Original author:** [WCBBEX](https://modrinth.com/user/WCBBEX) — creator of *Modification of Critical Hit* (Fabric, Minecraft 1.19.3–1.20.4, MIT License).
+
+**Port author:** Accidey — ported the mod to NeoForge for Minecraft 1.21.1 and extended it with additional features.
+
+This mod is a **NeoForge port of [Modification of Critical Hit](https://modrinth.com/mod/modification-of-critical-hit)**. The original project is released under the **MIT License** (Copyright © 2024 WCBBEX), which permits use, copying, modification, merging, publication, distribution, sublicensing, and sale, provided that the original copyright notice and permission notice are retained. We sincerely thank the original author for creating and sharing this mod.
+
+- Modrinth: https://modrinth.com/mod/modification-of-critical-hit
+- CurseForge: https://www.curseforge.com/minecraft/mc-mods/modification-of-critical-hit
+
+---
 
 ### Overview
 
@@ -115,24 +126,6 @@ This gives the diamond sword a 30% crit chance and +30% crit damage (critical hi
 | `/criticalhit damage <1~100>` | Set the held weapon's crit damage and write it to the configuration. |
 
 Both commands require permission level 2 (operator).
-
-### Requirements
-
-- Minecraft **1.21.1**
-- NeoForge **21.1.x**
-- Java **21**
-
-### Credits
-
-**Original author:** [WCBBEX](https://modrinth.com/user/WCBBEX) — creator of *Modification of Critical Hit* (Fabric, Minecraft 1.19.3–1.20.4, MIT License).
-
-**Port author:** Accidey — ported the mod to NeoForge for Minecraft 1.21.1 and extended it with additional features.
-
-This mod is a **NeoForge port of [Modification of Critical Hit](https://modrinth.com/mod/modification-of-critical-hit)**. The original project is released under the **MIT License** (Copyright © 2024 WCBBEX), which permits use, copying, modification, merging, publication, distribution, sublicensing, and sale, provided that the original copyright notice and permission notice are retained. We sincerely thank the original author for creating and sharing this mod.
-
-- Modrinth: https://modrinth.com/mod/modification-of-critical-hit
-- CurseForge: https://www.curseforge.com/minecraft/mc-mods/modification-of-critical-hit
-
 ---
 
 ## 中文
