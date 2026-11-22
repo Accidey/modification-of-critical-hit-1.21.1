@@ -48,3 +48,6 @@ repo/
 ### Multi-version workspaces ###
 26.2/
 26.3/
+
+### Local reference port (Fabric) ###
+modification-of-critical-hit-1.19.3-1.20.4/
