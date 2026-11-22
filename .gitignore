@@ -41,3 +41,10 @@ repo/
 
 ### WorkBuddy ###
 .workbuddy/
+
+### Local tooling ###
+.github/
+
+### Multi-version workspaces ###
+26.2/
+26.3/

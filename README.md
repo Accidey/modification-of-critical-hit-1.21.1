@@ -1,8 +1,10 @@
-# Critical Hit Reform 
+# Critical Hit Reform
 
-**中文描述在下方**
+**中文描述在下方 / Chinese description below**
 
-Critical Hit Reform is a **NeoForge** mod for Minecraft that introduces **critical hit chance** and **critical hit damage** to weapons, bringing a game-style critical hit system into the game. This project is a **NeoForge port of *Modification of Critical Hit* (Fabric) by [WCBBEX](https://modrinth.com/user/WCBBEX)**, ported to Minecraft 1.21.1 by **Accidey**, with additional enhancements and refinements.
+---
+
+## English
 
 ### Credits
 
@@ -14,8 +16,6 @@ This mod is a **NeoForge port of [Modification of Critical Hit](https://modrinth
 
 - Modrinth: https://modrinth.com/mod/modification-of-critical-hit
 - CurseForge: https://www.curseforge.com/minecraft/mc-mods/modification-of-critical-hit
-
----
 
 ### Overview
 
@@ -126,6 +126,7 @@ This gives the diamond sword a 30% crit chance and +30% crit damage (critical hi
 | `/criticalhit damage <1~100>` | Set the held weapon's crit damage and write it to the configuration. |
 
 Both commands require permission level 2 (operator).
+
 ---
 
 ## 中文

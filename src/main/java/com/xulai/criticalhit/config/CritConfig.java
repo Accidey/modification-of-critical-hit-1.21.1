@@ -15,133 +15,267 @@ public class CritConfig {
 
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
-    public static final ModConfigSpec.DoubleValue DEFAULT_CHANCE = BUILDER
-            .comment(
-                    "所有攻击的默认暴击概率，武器没有任何自定义暴击率与暴击附魔时同样生效（0.05 = 5%）",
-                    "Default crit chance for every attack, applies even when the weapon has no custom crit chance and no crit enchantment (0.05 = 5%)")
-            .defineInRange("default_crit_chance", 0.05, 0.0, 1.0);
+    static {
+        DEFAULT_CHANCE = BUILDER
+                .comment(
+                        "默认暴击概率",
+                        "Default crit chance",
+                        "所有攻击的默认暴击概率，武器没有任何自定义暴击率与暴击附魔时同样生效。",
+                        "Default crit chance for every attack, applies even when the weapon has no custom crit chance and no crit enchantment.",
+                        "Default: 0.05 / 默认：0.05",
+                        "Range: 0.0 ~ 1.0"
+                )
+                .defineInRange("default_crit_chance", 0.05, 0.0, 1.0);
 
-    public static final ModConfigSpec.BooleanValue CHANCE_ENABLE = BUILDER
-            .comment(
-                    "是否启用【概率暴击】附魔（修改后需重启游戏生效）",
-                    "Enable the Crit Chance enchantment (requires restart to take effect)")
-            .define("crit_chance.enable", true);
+        BUILDER.comment(" ");
 
-    public static final ModConfigSpec.DoubleValue CHANCE_PER_LEVEL = BUILDER
-            .comment(
-                    "",
-                    "概率暴击附魔每级增加的暴击率（0.2 = 20%）",
-                    "Crit chance added per level of the Crit Chance enchantment (0.2 = 20%)")
-            .defineInRange("crit_chance.chance_per_level", 0.2, 0.0, 1.0);
+        CHANCE_ENABLE = BUILDER
+                .comment(
+                        "启用概率暴击附魔",
+                        "Enable the crit chance enchantment",
+                        "是否启用【概率暴击】附魔；关闭后该附魔不再提供暴击率，也不再出现在任何获取渠道。",
+                        "Whether the Crit Chance enchantment is enabled; when disabled it provides no crit chance and never appears in any source.",
+                        "Default: true / 默认：true"
+                )
+                .define("crit_chance.enable", true);
 
-    public static final ModConfigSpec.IntValue CHANCE_MAX_LEVEL = BUILDER
-            .comment(
-                    "",
-                    "概率暴击附魔的生效等级上限（附魔本身共 5 级，调低可限制生效等级）",
-                    "Max effective level of the Crit Chance enchantment (the enchantment itself has 5 levels; lower this to cap the effect)")
-            .defineInRange("crit_chance.max_level", 5, 1, 255);
+        BUILDER.comment(" ");
 
-    public static final ModConfigSpec.BooleanValue EFFECT_ENABLE = BUILDER
-            .comment(
-                    "",
-                    "是否启用【暴击效果】附魔（修改后需重启游戏生效）",
-                    "Enable the Crit Effect enchantment (requires restart to take effect)")
-            .define("crit_effect.enable", true);
+        CHANCE_PER_LEVEL = BUILDER
+                .comment(
+                        "概率暴击每级暴击率",
+                        "Crit chance per crit chance level",
+                        "【概率暴击】附魔每级增加的暴击概率。",
+                        "Crit chance added per level of the Crit Chance enchantment.",
+                        "Default: 0.2 / 默认：0.2",
+                        "Range: 0.0 ~ 1.0"
+                )
+                .defineInRange("crit_chance.chance_per_level", 0.2, 0.0, 1.0);
 
-    public static final ModConfigSpec.DoubleValue EFFECT_INITIAL = BUILDER
-            .comment(
-                    "",
-                    "暴击的基础伤害倍率（1.5 = 暴击造成 150% 武器伤害，即原版暴击倍率）",
-                    "暴击效果附魔每级在其基础上叠加 damage_per_level（默认 1.5 + 每级 0.2，满级 5 级时暴击造成 250% 武器伤害）",
-                    "物品提示里的暴击伤害百分比就是该倍率本身（默认 150%）",
-                    "仅在武器没有自定义暴击伤害时作为基准；自定义武器的暴击伤害取自 custom_weapons",
-                    "Base crit damage multiplier (1.5 = crits deal 150% weapon damage, the vanilla value)",
-                    "Each level of the Crit Effect enchantment stacks damage_per_level on top (default 1.5 + 0.2/level, so level 5 crits deal 250% weapon damage)",
-                    "The crit damage percentage shown in the item tooltip is this multiplier (150% by default)",
-                    "Used only when the weapon has no custom crit damage; custom weapons take their value from custom_weapons")
-            .defineInRange("crit_effect.initial_damage", 1.5, 1.0, 100.0);
+        BUILDER.comment(" ");
 
-    public static final ModConfigSpec.DoubleValue EFFECT_PER_LEVEL = BUILDER
-            .comment(
-                    "",
-                    "暴击效果附魔每级增加的暴击伤害倍率（0.2 = 每级 +20% 武器伤害，满级 5 级共 +100%）",
-                    "Crit damage multiplier added per level of the Crit Effect enchantment (0.2 = +20% weapon damage per level, +100% total at level 5)")
-            .defineInRange("crit_effect.damage_per_level", 0.2, 0.0, 100.0);
+        CHANCE_MAX_LEVEL = BUILDER
+                .comment(
+                        "概率暴击附魔等级上限",
+                        "Max crit chance enchantment level",
+                        "【概率暴击】附魔的最高等级，影响附魔书、附魔台、村民交易与战利品中可出现的等级；不会超过附魔定义本身的 5 级。",
+                        "Maximum level of the Crit Chance enchantment, affecting books, the enchanting table, villager trades and loot; never exceeds the definition's own cap of level 5.",
+                        "修改后立刻生效，无需重启游戏。",
+                        "Takes effect immediately, no restart required.",
+                        "Default: 5 / 默认：5",
+                        "Range: 1 ~ 255"
+                )
+                .defineInRange("crit_chance.max_level", 5, 1, 255);
 
-    public static final ModConfigSpec.IntValue EFFECT_MAX_LEVEL = BUILDER
-            .comment(
-                    "",
-                    "暴击效果附魔的生效等级上限（附魔本身共 5 级，调低可限制生效等级）",
-                    "Max effective level of the Crit Effect enchantment (the enchantment itself has 5 levels; lower this to cap the effect)")
-            .defineInRange("crit_effect.max_level", 5, 1, 255);
+        BUILDER.comment(" ");
 
-    public static final ModConfigSpec.BooleanValue CHANCE_IN_ENCHANTING_TABLE = BUILDER
-            .comment(
-                    "",
-                    "【概率暴击】附魔是否可以出现在附魔台的候选里（修改后需重进世界或执行 /reload 生效）",
-                    "Whether the Crit Chance enchantment can show up in the enchanting table (requires rejoining the world or /reload)")
-            .define("availability.crit_chance.enchanting_table", true);
+        EFFECT_ENABLE = BUILDER
+                .comment(
+                        "启用暴击效果附魔",
+                        "Enable the crit effect enchantment",
+                        "是否启用【暴击效果】附魔；关闭后该附魔不再提供暴击伤害加成，也不再出现在任何获取渠道。",
+                        "Whether the Crit Effect enchantment is enabled; when disabled it provides no crit damage bonus and never appears in any source.",
+                        "Default: true / 默认：true"
+                )
+                .define("crit_effect.enable", true);
 
-    public static final ModConfigSpec.BooleanValue CHANCE_IN_VILLAGER_TRADE = BUILDER
-            .comment(
-                    "",
-                    "【概率暴击】附魔是否可以出现在村民（图书管理员）的附魔书交易里（修改后需重进世界或执行 /reload 生效）",
-                    "Whether the Crit Chance enchantment can appear in villager enchanted book trades (requires rejoining the world or /reload)")
-            .define("availability.crit_chance.villager_trade", true);
+        BUILDER.comment(" ");
 
-    public static final ModConfigSpec.BooleanValue CHANCE_IN_RANDOM_LOOT = BUILDER
-            .comment(
-                    "",
-                    "【概率暴击】附魔是否可以出现在奖励箱战利品与钓鱼获得的物品上（修改后需重进世界或执行 /reload 生效）",
-                    "Whether the Crit Chance enchantment can appear on loot chest items and fishing loot (requires rejoining the world or /reload)")
-            .define("availability.crit_chance.random_loot", true);
+        EFFECT_INITIAL = BUILDER
+                .comment(
+                        "暴击基础伤害倍率",
+                        "Base crit damage multiplier",
+                        "暴击的基础伤害倍率，1.5 即暴击造成 150% 武器伤害，与原版暴击一致。",
+                        "Base crit damage multiplier; 1.5 means crits deal 150% weapon damage, the vanilla value.",
+                        "仅在武器没有自定义暴击伤害时作为基准，自定义武器的暴击伤害取自 custom_weapons。",
+                        "Used only when the weapon has no custom crit damage; custom weapons take their value from custom_weapons.",
+                        "物品提示里的暴击伤害百分比就是该倍率本身。",
+                        "The crit damage percentage shown in the item tooltip is this multiplier.",
+                        "Default: 1.5 / 默认：1.5",
+                        "Range: 1.0 ~ 100.0"
+                )
+                .defineInRange("crit_effect.initial_damage", 1.5, 1.0, 100.0);
 
-    public static final ModConfigSpec.BooleanValue EFFECT_IN_ENCHANTING_TABLE = BUILDER
-            .comment(
-                    "",
-                    "【暴击效果】附魔是否可以出现在附魔台的候选里（修改后需重进世界或执行 /reload 生效）",
-                    "Whether the Crit Effect enchantment can show up in the enchanting table (requires rejoining the world or /reload)")
-            .define("availability.crit_effect.enchanting_table", true);
+        BUILDER.comment(" ");
 
-    public static final ModConfigSpec.BooleanValue EFFECT_IN_VILLAGER_TRADE = BUILDER
-            .comment(
-                    "",
-                    "【暴击效果】附魔是否可以出现在村民（图书管理员）的附魔书交易里（修改后需重进世界或执行 /reload 生效）",
-                    "Whether the Crit Effect enchantment can appear in villager enchanted book trades (requires rejoining the world or /reload)")
-            .define("availability.crit_effect.villager_trade", true);
+        EFFECT_PER_LEVEL = BUILDER
+                .comment(
+                        "暴击效果每级伤害倍率",
+                        "Crit damage per crit effect level",
+                        "【暴击效果】附魔每级在基础倍率上叠加的伤害倍率，0.2 即每级 +20% 武器伤害。",
+                        "Crit damage multiplier added per level of the Crit Effect enchantment on top of the base value, 0.2 means +20% weapon damage per level.",
+                        "默认数值下 I 级为 170%，V 级为 250%。",
+                        "With the default values level I is 170% and level V is 250%.",
+                        "Default: 0.2 / 默认：0.2",
+                        "Range: 0.0 ~ 100.0"
+                )
+                .defineInRange("crit_effect.damage_per_level", 0.2, 0.0, 100.0);
 
-    public static final ModConfigSpec.BooleanValue EFFECT_IN_RANDOM_LOOT = BUILDER
-            .comment(
-                    "",
-                    "【暴击效果】附魔是否可以出现在奖励箱战利品与钓鱼获得的物品上（修改后需重进世界或执行 /reload 生效）",
-                    "Whether the Crit Effect enchantment can appear on loot chest items and fishing loot (requires rejoining the world or /reload)")
-            .define("availability.crit_effect.random_loot", true);
+        BUILDER.comment(" ");
 
-    public static final ModConfigSpec.BooleanValue DISABLE_VANILLA_JUMP_CRIT = BUILDER
-            .comment(
-                    "",
-                    "是否禁止原版的跳跃下落暴击（true = 只有自定义暴击率和附魔才能触发暴击）",
-                    "Whether to disable the vanilla falling/jump critical hit (true = crits can only be triggered by custom crit chance and enchantments)")
-            .define("disable_vanilla_jump_crit", true);
+        EFFECT_MAX_LEVEL = BUILDER
+                .comment(
+                        "暴击效果附魔等级上限",
+                        "Max crit effect enchantment level",
+                        "【暴击效果】附魔的最高等级，影响附魔书、附魔台、村民交易与战利品中可出现的等级；不会超过附魔定义本身的 5 级。",
+                        "Maximum level of the Crit Effect enchantment, affecting books, the enchanting table, villager trades and loot; never exceeds the definition's own cap of level 5.",
+                        "修改后立刻生效，无需重启游戏。",
+                        "Takes effect immediately, no restart required.",
+                        "Default: 5 / 默认：5",
+                        "Range: 1 ~ 255"
+                )
+                .defineInRange("crit_effect.max_level", 5, 1, 255);
 
-    public static final ModConfigSpec.ConfigValue<List<? extends String>> CUSTOM_WEAPONS = BUILDER
-            .comment(
-                    "",
-                    "自定义武器暴击列表，格式：物品ID,暴击率,暴击伤害倍率",
-                    "暴击率取值 0.0~1.0（0.3 = 30%）；暴击伤害倍率 = 1 + 加成，例如 1.3 表示暴击造成130%伤害（即+30%）",
-                    "示例：minecraft:diamond_sword,0.3,1.3 表示钻石剑拥有30%暴击率，暴击伤害+30%",
-                    "近战与远程均生效：弓、弩等远程武器写在列表里后，射出的箭矢、投掷物同样享受暴击率与暴击伤害加成",
-                    "游戏内可用指令直接添加手持物品：/criticalhit chance <0~1> 与 /criticalhit damage <1~100>",
-                    "Custom weapon crit list, format: item_id,crit_chance,crit_damage",
-                    "crit_chance ranges from 0.0 to 1.0 (0.3 = 30%); crit_damage = 1 + bonus, e.g. 1.3 means crits deal 130% damage (+30%)",
-                    "Example: minecraft:diamond_sword,0.3,1.3 gives the diamond sword 30% crit chance and +30% crit damage",
-                    "Applies to both melee and ranged: arrows and thrown projectiles fired with a listed bow/crossbow also benefit from crit chance and crit damage",
-                    "In game you can add the held item with: /criticalhit chance <0~1> and /criticalhit damage <1~100>")
-            .defineListAllowEmpty(
-                    "custom_weapons",
-                    List.of(),
-                    () -> "modid:item_id,0.3,1.5",
-                    CritConfig::validateWeaponEntry);
+        BUILDER.comment(" ");
+
+        CHANCE_IN_ENCHANTING_TABLE = BUILDER
+                .comment(
+                        "概率暴击附魔台渠道",
+                        "Crit chance in enchanting table",
+                        "【概率暴击】附魔是否可以出现在附魔台的候选里。",
+                        "Whether the Crit Chance enchantment can show up in the enchanting table.",
+                        "修改后需重进世界或执行 /reload 生效。",
+                        "Requires rejoining the world or running /reload to take effect.",
+                        "Default: true / 默认：true"
+                )
+                .define("availability.crit_chance.enchanting_table", true);
+
+        BUILDER.comment(" ");
+
+        CHANCE_IN_VILLAGER_TRADE = BUILDER
+                .comment(
+                        "概率暴击村民交易渠道",
+                        "Crit chance in villager trades",
+                        "【概率暴击】附魔是否可以出现在村民图书管理员的附魔书交易里。",
+                        "Whether the Crit Chance enchantment can appear in librarian enchanted book trades.",
+                        "修改后需重进世界或执行 /reload 生效。",
+                        "Requires rejoining the world or running /reload to take effect.",
+                        "Default: true / 默认：true"
+                )
+                .define("availability.crit_chance.villager_trade", true);
+
+        BUILDER.comment(" ");
+
+        CHANCE_IN_RANDOM_LOOT = BUILDER
+                .comment(
+                        "概率暴击战利品渠道",
+                        "Crit chance in random loot",
+                        "【概率暴击】附魔是否可以出现在奖励箱战利品与钓鱼获得的物品上。",
+                        "Whether the Crit Chance enchantment can appear on loot chest items and fishing loot.",
+                        "修改后需重进世界或执行 /reload 生效。",
+                        "Requires rejoining the world or running /reload to take effect.",
+                        "Default: true / 默认：true"
+                )
+                .define("availability.crit_chance.random_loot", true);
+
+        BUILDER.comment(" ");
+
+        EFFECT_IN_ENCHANTING_TABLE = BUILDER
+                .comment(
+                        "暴击效果附魔台渠道",
+                        "Crit effect in enchanting table",
+                        "【暴击效果】附魔是否可以出现在附魔台的候选里。",
+                        "Whether the Crit Effect enchantment can show up in the enchanting table.",
+                        "修改后需重进世界或执行 /reload 生效。",
+                        "Requires rejoining the world or running /reload to take effect.",
+                        "Default: true / 默认：true"
+                )
+                .define("availability.crit_effect.enchanting_table", true);
+
+        BUILDER.comment(" ");
+
+        EFFECT_IN_VILLAGER_TRADE = BUILDER
+                .comment(
+                        "暴击效果村民交易渠道",
+                        "Crit effect in villager trades",
+                        "【暴击效果】附魔是否可以出现在村民图书管理员的附魔书交易里。",
+                        "Whether the Crit Effect enchantment can appear in librarian enchanted book trades.",
+                        "修改后需重进世界或执行 /reload 生效。",
+                        "Requires rejoining the world or running /reload to take effect.",
+                        "Default: true / 默认：true"
+                )
+                .define("availability.crit_effect.villager_trade", true);
+
+        BUILDER.comment(" ");
+
+        EFFECT_IN_RANDOM_LOOT = BUILDER
+                .comment(
+                        "暴击效果战利品渠道",
+                        "Crit effect in random loot",
+                        "【暴击效果】附魔是否可以出现在奖励箱战利品与钓鱼获得的物品上。",
+                        "Whether the Crit Effect enchantment can appear on loot chest items and fishing loot.",
+                        "修改后需重进世界或执行 /reload 生效。",
+                        "Requires rejoining the world or running /reload to take effect.",
+                        "Default: true / 默认：true"
+                )
+                .define("availability.crit_effect.random_loot", true);
+
+        BUILDER.comment(" ");
+
+        DISABLE_VANILLA_JUMP_CRIT = BUILDER
+                .comment(
+                        "禁止原版跳跃暴击",
+                        "Disable the vanilla jump crit",
+                        "是否禁止原版的跳跃下落暴击；开启后只有自定义暴击率和附魔才能触发暴击。",
+                        "Whether to disable the vanilla falling critical hit; when enabled only custom crit chance and enchantments can trigger crits.",
+                        "Default: true / 默认：true"
+                )
+                .define("disable_vanilla_jump_crit", true);
+
+        BUILDER.comment(" ");
+
+        CUSTOM_WEAPONS = BUILDER
+                .comment(
+                        "自定义武器暴击列表",
+                        "Custom weapon crit list",
+                        "格式：物品ID,暴击率,暴击伤害倍率，例如 minecraft:diamond_sword,0.3,1.3。",
+                        "Format: item_id,crit_chance,crit_damage, e.g. minecraft:diamond_sword,0.3,1.3.",
+                        "暴击率取值 0.0 ~ 1.0，0.3 即 30%；暴击伤害倍率 = 1 + 加成，1.3 即暴击造成 130% 伤害。",
+                        "crit_chance ranges from 0.0 to 1.0, 0.3 means 30%; crit_damage = 1 + bonus, 1.3 means crits deal 130% damage.",
+                        "近战与远程均生效：弓、弩写入列表后，射出的箭矢与投掷物同样享受暴击率与暴击伤害加成。",
+                        "Applies to melee and ranged alike: arrows and thrown projectiles fired with a listed bow or crossbow also benefit.",
+                        "游戏内可用指令直接添加手持物品：/criticalhit chance <0~1> 与 /criticalhit damage <1~100>。",
+                        "In game you can add the held item with /criticalhit chance <0~1> and /criticalhit damage <1~100>.",
+                        "Default: [] / 默认：[]"
+                )
+                .defineListAllowEmpty(
+                        "custom_weapons",
+                        List.of(),
+                        () -> "modid:item_id,0.3,1.5",
+                        CritConfig::validateWeaponEntry);
+    }
+
+    public static final ModConfigSpec.DoubleValue DEFAULT_CHANCE;
+
+    public static final ModConfigSpec.BooleanValue CHANCE_ENABLE;
+
+    public static final ModConfigSpec.DoubleValue CHANCE_PER_LEVEL;
+
+    public static final ModConfigSpec.IntValue CHANCE_MAX_LEVEL;
+
+    public static final ModConfigSpec.BooleanValue EFFECT_ENABLE;
+
+    public static final ModConfigSpec.DoubleValue EFFECT_INITIAL;
+
+    public static final ModConfigSpec.DoubleValue EFFECT_PER_LEVEL;
+
+    public static final ModConfigSpec.IntValue EFFECT_MAX_LEVEL;
+
+    public static final ModConfigSpec.BooleanValue CHANCE_IN_ENCHANTING_TABLE;
+
+    public static final ModConfigSpec.BooleanValue CHANCE_IN_VILLAGER_TRADE;
+
+    public static final ModConfigSpec.BooleanValue CHANCE_IN_RANDOM_LOOT;
+
+    public static final ModConfigSpec.BooleanValue EFFECT_IN_ENCHANTING_TABLE;
+
+    public static final ModConfigSpec.BooleanValue EFFECT_IN_VILLAGER_TRADE;
+
+    public static final ModConfigSpec.BooleanValue EFFECT_IN_RANDOM_LOOT;
+
+    public static final ModConfigSpec.BooleanValue DISABLE_VANILLA_JUMP_CRIT;
+
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> CUSTOM_WEAPONS;
 
     public static final ModConfigSpec SPEC = BUILDER.build();
 
