@@ -1,0 +1,28 @@
+license="${mod_license}"
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+authors="xulai"
+description='''
+暴击改革：为武器添加暴击率与暴击伤害属性，支持附魔与配置文件自定义武器暴击。
+Critical Hit Reform: adds crit chance and crit damage to weapons, with enchantments and per-weapon config customization.
+'''
+
+[[mixins]]
+config="criticalhit.mixins.json"
+
+[[dependencies.${mod_id}]]
+    modId="neoforge"
+    type="required"
+    versionRange="[${neo_version},)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
