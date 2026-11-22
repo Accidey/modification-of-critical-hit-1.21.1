@@ -1,0 +1,10 @@
+{
+  "enchantment.criticalhit.crit_chance": "概率暴击",
+  "enchantment.criticalhit.crit_chance.desc": "增加暴击概率",
+  "enchantment.criticalhit.crit_effect": "暴击效果",
+  "enchantment.criticalhit.crit_effect.desc": "增加暴击造成的伤害",
+  "tooltip.criticalhit.crit_chance": " %s 暴击率",
+  "tooltip.criticalhit.crit_damage": " %s 暴击伤害",
+  "command.criticalhit.no_item": "主手没有手持任何物品",
+  "command.criticalhit.set": "已将 %s 写入暴击配置：暴击率 %s%%，暴击伤害 +%s%%"
+}

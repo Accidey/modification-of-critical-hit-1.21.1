@@ -1,0 +1,10 @@
+{
+  "enchantment.criticalhit.crit_chance": "Probability Critical Hit",
+  "enchantment.criticalhit.crit_chance.desc": "Increase Critical Hit Chance",
+  "enchantment.criticalhit.crit_effect": "Critical Effect",
+  "enchantment.criticalhit.crit_effect.desc": "Increase Damage from Critical Hits",
+  "tooltip.criticalhit.crit_chance": " %s Crit Chance",
+  "tooltip.criticalhit.crit_damage": " %s Crit Damage",
+  "command.criticalhit.no_item": "No item in the main hand",
+  "command.criticalhit.set": "%s written to crit config: %s%% crit chance, +%s%% crit damage"
+}
